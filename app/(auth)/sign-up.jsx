@@ -127,7 +127,7 @@ const SignUp = () => {
 
           <View className="pt-10 justify-center items-center flex-row gap-2">
             <Text className="text-base text-primary-500 font-rregular text-center">Already have an account?</Text>
-            <Link href='/sign-in' className='text-[17px] text-accent-600 font-rbold'>Log in</Link>
+            <Link href='/sign-in' className='text-[17px] text-[#5DADE2] font-rbold'>Log in</Link>
           </View>
         </View>
       </ScrollView>

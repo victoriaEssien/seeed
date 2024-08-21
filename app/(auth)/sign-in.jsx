@@ -5,6 +5,7 @@ import axios from 'axios';
 import FormField from '../../components/FormField';
 import CustomButton from '../../components/CustomButton';
 import { Link, router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -34,9 +35,11 @@ const SignIn = () => {
 
       console.log('API Response:', response.data);
       if (response.data.success) {
+        const { accessToken } = response.data.data;
+        await AsyncStorage.setItem('accessToken', accessToken); // Save token to AsyncStorage for future use
         alert('Login successful');
         // Handle successful login, e.g., save token, navigate to the dashboard
-        // router.push('/dashboard'); // Replace with your desired route
+        router.push('/home'); // Replace with your desired route
         setForm({
           email: '',
           password: ''
@@ -74,6 +77,10 @@ const SignIn = () => {
             otherStyles="mt-6"
           />
 
+          <View className="pt-4 justify-start items-center flex-row gap-2">
+            <Link href='/forgot-password' className='text-[17px] text-base text-[#5DADE2]'>Forgot Password?</Link>
+          </View>
+
           <CustomButton 
             title="Log in"
             handlePress={handleLogin}
@@ -83,7 +90,7 @@ const SignIn = () => {
 
           <View className="pt-10 justify-center items-center flex-row gap-2">
             <Text className="text-base text-primary-500 font-rregular text-center">Don't have an account?</Text>
-            <Link href='/sign-up' className='text-[17px] text-accent-600 font-rbold'>Sign up</Link>
+            <Link href='/sign-up' className='text-[17px] text-[#5DADE2] font-rbold'>Sign up</Link>
           </View>
         </View>
       </ScrollView>
